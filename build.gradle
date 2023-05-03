@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
-apply plugin: "org.sonarqube" version "3.4.0.2513"
+apply plugin: 'org.sonarqube'
+sourceCompatibility = '3.4.0.2513'
 
 group = 'com.github.jitpack'
 version = '2.0'
