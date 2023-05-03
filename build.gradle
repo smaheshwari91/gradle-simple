@@ -1,9 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-
 plugins {
   id "org.sonarqube" version "3.4.0.2513"
 }
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 group = 'com.github.jitpack'
 version = '2.0'
