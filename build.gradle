@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
+apply plugin: 'org.sonarqube'
 
 group = 'com.github.jitpack'
 version = '2.0'
@@ -31,8 +32,4 @@ publishing {
 wrapper {
     gradleVersion = "7.3.3"
     distributionType = Wrapper.DistributionType.ALL
-}
-
-plugins {
-  id "org.sonarqube" version "3.4.0.2513"
 }
