@@ -1,10 +1,11 @@
-name: Build Sonar
+name: Build
+
 on:
   push:
     branches:
-      - master # or the name of your main branch
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - master
+
+
 jobs:
   build:
     name: Build
@@ -34,4 +35,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: ./gradlew sonarqube
+        run: ./gradlew build sonar --info
