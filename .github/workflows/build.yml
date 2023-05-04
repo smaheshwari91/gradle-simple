@@ -5,7 +5,7 @@ on:
 # the workflow will be trigger on a push on the specified branch/branches
   push:
     branches:
-      - trunk
+      - master
  
 jobs:
   sonar:
