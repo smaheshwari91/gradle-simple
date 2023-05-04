@@ -1,38 +1,19 @@
-name: Build
-
+name: Sonar Analysis
 on:
+# can be used to run the workflow manually
+  workflow_dispatch:
+# the workflow will be trigger on a push on the specified branch/branches
   push:
     branches:
-      - master
-
-
+      - trunk
+ 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  sonar:
+    runs-on: java8
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Cache SonarQube packages
-        uses: actions/cache@v1.2.1
-        with:
-          path: ~/.sonar/cache1
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Gradle packages
-        uses: actions/cache@v1.2.1
-        with:
-          path: ~/.gradle/caches1
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: ./gradlew build sonar --info
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run Sonar Scanner
+        run: |
+          ./gradlew test jacocoTestReport sonarqube -Dsonar.projectKey=DWB-BE -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.login=${{ secrets.SONAR_DWB_BE_TOKEN }}
